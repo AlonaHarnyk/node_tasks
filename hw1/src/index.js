@@ -1,5 +1,4 @@
-import { Command } from "commander";
-const program = new Command();
+import { program } from "commander";
 program
   .option("-a, --action <type>", "choose action")
   .option("-i, --id <type>", "user id")
@@ -7,9 +6,9 @@ program
   .option("-e, --email <type>", "user email")
   .option("-p, --phone <type>", "user phone");
 
-program.parse(process.argv);
+program.parse();
 
-const argv = program.opts();
+const options = program.opts();
 
 // TODO: рефакторити
 async function invokeAction({ action, id, name, email, phone }) {
@@ -35,4 +34,4 @@ async function invokeAction({ action, id, name, email, phone }) {
   }
 }
 
-invokeAction(argv);
+invokeAction(options);
