@@ -2,7 +2,7 @@ import contactsService from "../services/contactsServices.js";
 
 export const getAllContacts = (req, res) => {};
 
-export const getContactById = (req, res) => {};
+export const getOneContact = (req, res) => {};
 
 export const deleteContact = (req, res) => {};
 
