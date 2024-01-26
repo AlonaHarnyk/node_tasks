@@ -7,48 +7,61 @@ const getAllContacts = async (req, res) => {
   res.json(result);
 };
 
-// const getOneContact = async (req, res) => {
-//   const { id } = req.params;
-//   const result = await contactsService.getContactById(id);
-//   if (!result) {
-//     throw HttpError(404);
-//   }
-//   res.json(result);
-// };
+const getOneContact = async (req, res) => {
+  const { id } = req.params;
+  const result = await Contact.findById(id);
+  if (!result) {
+    throw HttpError(404);
+  }
+  res.json(result);
+};
 
-// const deleteContact = async (req, res) => {
-//   const { id } = req.params;
-//   const result = await contactsService.removeContact(id);
-//   if (!result) {
-//     throw HttpError(404, "Not found");
-//   }
-//   res.status(200).json(result);
-// };
+const deleteContact = async (req, res) => {
+  const { id } = req.params;
+  const result = await Contact.findByIdAndRemove(id);
+  if (!result) {
+    throw HttpError(404, "Not found");
+  }
+  res.status(200).json(result);
+};
 
-// const createContact = async (req, res) => {
-//   const result = await contactsService.addContact(req.body);
-//   if (!result) {
-//     throw HttpError(400);
-//   }
-//   res.status(201).json(result);
-// };
+const createContact = async (req, res) => {
+  const result = await Contact.create(req.body);
+  if (!result) {
+    throw HttpError(400);
+  }
+  res.status(201).json(result);
+};
 
-// const updateContact = async (req, res) => {
-//   if (Object.keys(req.body).length === 0) {
-//     throw HttpError(400, "Body must have at least one field");
-//   }
-//   const { id } = req.params;
-//   const result = await contactsService.updateById(id, req.body);
-//   if (!result) {
-//     throw HttpError(400);
-//   }
-//   res.status(200).json(result);
-// };
+const updateContact = async (req, res) => {
+  if (Object.keys(req.body).length === 0) {
+    throw HttpError(400, "Body must have at least one field");
+  }
+  const { id } = req.params;
+  const result = await Contact.findByIdAndUpdate(id, req.body, {new: true});
+  if (!result) {
+    throw HttpError(400);
+  }
+  res.status(200).json(result);
+};
+
+const updateStatusContact = async (req, res) => {
+  if (Object.keys(req.body).length === 0) {
+    throw HttpError(400, "Body must have at least one field");
+  }
+  const { id } = req.params;
+  const result = await Contact.findByIdAndUpdate(id, req.body, {new:true});
+  if (!result) {
+    throw HttpError(400);
+  }
+  res.status(200).json(result);
+};
 
 module.exports = {
   getAllContacts: ctrlWrapper(getAllContacts),
-  // getOneContact: ctrlWrapper(getOneContact),
-  // deleteContact: ctrlWrapper(deleteContact),
-  // createContact: ctrlWrapper(createContact),
-  // updateContact: ctrlWrapper(updateContact),
+  getOneContact: ctrlWrapper(getOneContact),
+  deleteContact: ctrlWrapper(deleteContact),
+  createContact: ctrlWrapper(createContact),
+  updateContact: ctrlWrapper(updateContact),
+  updateStatusContact: ctrlWrapper(updateStatusContact),
 };

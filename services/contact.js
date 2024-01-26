@@ -1,6 +1,7 @@
 const {Schema, model} = require("mongoose");
+const handleMongooseError = require("../helpers/handleMongooseError");
 
-const contactShema = Schema({
+const contactSchema = new Schema({
     name: {
         type: String,
         required: [true, 'Set name for contact'],
@@ -15,7 +16,10 @@ const contactShema = Schema({
         type: Boolean,
         default: false,
       },
-})
+},
+{versionKey: false, timestamps: true});
 
-const Contact = model("contact", contactShema);
+contactSchema.post("save", handleMongooseError);
+
+const Contact = model("contact", contactSchema);
 module.exports = Contact;
