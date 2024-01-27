@@ -1,8 +1,8 @@
 {
   "name": "goit-node-rest-api",
   "scripts": {
-    "start": "node ./app.js",
-    "dev": "nodemon ./app.js"
+    "start": "cross-env NODE_ENV=production node ./server.js",
+    "dev": "cross-env NODE_ENV=development nodemon ./server.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
