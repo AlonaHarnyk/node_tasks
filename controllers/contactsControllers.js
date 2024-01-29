@@ -40,7 +40,7 @@ const updateContact = async (req, res) => {
   const { id } = req.params;
   const result = await Contact.findByIdAndUpdate(id, req.body, {new: true});
   if (!result) {
-    throw HttpError(400);
+    throw HttpError(404);
   }
   res.status(200).json(result);
 };
