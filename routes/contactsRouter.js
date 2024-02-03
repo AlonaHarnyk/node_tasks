@@ -4,24 +4,26 @@ const ctrl = require("../controllers/contactsControllers.js");
 const  validateBody  = require("../helpers/validateBody.js");
 const schemas = require("../schemas/contactsSchemas.js");
 const isValidId = require("../helpers/isValidId.js");
+const authenticate = require("../helpers/middlewares/authenticate.js")
 
 
 const contactsRouter = express.Router();
 
-contactsRouter.get("/", ctrl.getAllContacts);
+contactsRouter.get("/", authenticate, ctrl.getAllContacts);
 
-contactsRouter.get("/:id", isValidId, ctrl.getOneContact);
+contactsRouter.get("/:id", authenticate, isValidId, ctrl.getOneContact);
 
-contactsRouter.delete("/:id", isValidId, ctrl.deleteContact);
+contactsRouter.delete("/:id", authenticate, isValidId, ctrl.deleteContact);
 
 contactsRouter.post(
-  "/",
+  "/", authenticate,
   validateBody(schemas.createContactSchema),
   ctrl.createContact
 );
 
 contactsRouter.put(
   "/:id",
+  authenticate,
   isValidId,
   validateBody(schemas.updateContactSchema),
   ctrl.updateContact
@@ -29,6 +31,7 @@ contactsRouter.put(
 
 contactsRouter.patch(
   "/:id/favorite", 
+  authenticate,
   isValidId,
   validateBody(schemas.updateFavoriteSchema), 
   ctrl.updateStatusContact);
