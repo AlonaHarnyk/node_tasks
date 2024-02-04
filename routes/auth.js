@@ -4,7 +4,7 @@ const router = express.Router();
 const ctrl = require("../controllers/auth");
 const validateBody = require("../helpers/validateBody");
 const {schemas} = require("../models/user");
-const authenticate = require("../helpers/middlewares/authenticate");
+const authenticate = require("../middlewares/authenticate");
 
 // signup
 router.post("/register", validateBody(schemas.registerSchema), ctrl.register);

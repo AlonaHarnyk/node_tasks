@@ -11,8 +11,11 @@ const getAllContacts = async (req, res) => {
 };
 
 const getOneContact = async (req, res) => {
-  const { id } = req.params;
-  const result = await Contact.findById(id);
+  const {_id} = req.user;
+  const { contactId } = req.params;
+  const result = await Contact.findOne({
+    _id: contactId,
+   owner: _id});
   if (!result) {
     throw HttpError(404);
   }
@@ -20,8 +23,11 @@ const getOneContact = async (req, res) => {
 };
 
 const deleteContact = async (req, res) => {
-  const { id } = req.params;
-  const result = await Contact.findByIdAndDelete(id);
+  const {_id} = req.user;
+  const { contactId } = req.params;
+  const result = await Contact.findOneAndDelete({
+     _id: contactId,
+    owner: _id});
   if (!result) {
     throw HttpError(404);
   }
@@ -41,8 +47,13 @@ const updateContact = async (req, res) => {
   if (Object.keys(req.body).length === 0) {
     throw HttpError(400, "Body must have at least one field");
   }
-  const { id } = req.params;
-  const result = await Contact.findByIdAndUpdate(id, req.body, {new: true});
+  const {_id} = req.user;
+  const { contactId } = req.params;
+  const result = await Contact.findOneAndUpdate({
+    _id: contactId,
+   owner: _id}, 
+   req.body,
+    {new: true});
   if (!result) {
     throw HttpError(404);
   }
@@ -53,8 +64,13 @@ const updateStatusContact = async (req, res) => {
   if (Object.keys(req.body).length === 0) {
     throw HttpError(400, "Body must have at least one field");
   }
-  const { id } = req.params;
-  const result = await Contact.findByIdAndUpdate(id, req.body, {new:true});
+  const {_id} = req.user;
+  const { contactId } = req.params;
+  const result = await Contact.findOneAndUpdate({
+    _id: contactId,
+   owner: _id}, 
+   req.body,
+    {new:true});
   if (!result) {
     throw HttpError(404);
   }
