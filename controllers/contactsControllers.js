@@ -28,8 +28,6 @@ const deleteContact = async (req, res) => {
   const result = await Contact.findOneAndDelete({
      _id: id,
     owner: _id});
-    console.log(_id);
-    console.log(id);
   if (!result) {
     throw HttpError(404);
   }
