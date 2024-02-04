@@ -8,7 +8,7 @@ const authRouter = require("./routes/auth.js");
 const contactsRouter = require("./routes/contactsRouter.js");
 
 const app = express();
-const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short'
+
 
 app.use(morgan("tiny"));
 app.use(cors());
