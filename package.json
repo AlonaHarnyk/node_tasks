@@ -1,6 +1,7 @@
 {
   "name": "goit-node-rest-api",
   "type": "module",
+  "homepage": "https://Balinskiy.github.io/goit-node-rest-api/",
   "scripts": {
     "start": "node ./app.js",
     "dev": "nodemon ./app.js"
